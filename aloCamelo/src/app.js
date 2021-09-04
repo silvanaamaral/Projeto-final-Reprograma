@@ -1,4 +1,5 @@
 const express = require('express')
+const cors = require('cors')
 const app = express()
 //require('dotenv-safe').config()
 
@@ -6,6 +7,7 @@ const database = require('../src/data/database')
 database.connect()
 
 app.use(express.json())
+app.use(cors())
 
 const cameloAdministradorRouter = require('../src/routes/cameloRoutes.js')
 app.use('/administrador', cameloAdministradorRouter)

@@ -1,7 +1,8 @@
 const mongoose = require('mongoose')
 //require('dotenv-safe').config()
 
-const MONGOURL = process.env.MONGODB_URL
+const MONGODB = process.env.MONGODB_URI || process.env.MONGODB_URL
+
 const connect = () => {mongoose.connect(
   'mongodb://localhost:27017/aloCamelo', {
   useNewUrlParser: true,
