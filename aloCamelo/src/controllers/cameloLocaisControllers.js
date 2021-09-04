@@ -1,10 +1,7 @@
-const mongoose = require('Mongoose')
+
 const Locais = require('../models/cameloLocaisModels.js')
 const Usuarios = require('../models/usuarios.js')
 
-const jwt = require('jsonwebtoken')
-const bcrypt = require('bcrypt')
-const SECRET = process.env.SECRET
 
 //GET
 const getAllLocais = (req, res) => {
