@@ -1,4 +1,4 @@
-const CameloAdministrador = require('../models/cameloAdministrador')
+const CameloAdministrador = require('../models/usuarios')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 

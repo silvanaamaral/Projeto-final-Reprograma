@@ -1,7 +1,6 @@
 const express = require('express')
 const cors = require('cors')
 const app = express()
-const PORT = process.env.PORT || 3000
 
 //require('dotenv-safe').config()
 
@@ -11,13 +10,12 @@ database.connect()
 app.use(express.json())
 app.use(cors())
 
-const cameloAdministradorRouter = require('../src/routes/cameloRoutes.js')
+const cameloAdministradorRouter = require('./routes/cameloAdministradorRoutes')
 app.use('/administrador', cameloAdministradorRouter)
 
-const camelos = require('../src/routes/cameloRoutes.js')
-app.use('/camelo', camelos)
 
-const locais = require('../src/routes/cameloLocaisRoutes.js')
+
+const locais = require('./routes/cameloLocaisRoutes')
 app.use('/local', locais)
 
 
