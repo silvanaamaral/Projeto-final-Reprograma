@@ -1,9 +1,8 @@
 const mongoose = require('mongoose')
 const Mime = require('mime-types')
 
-
 const locaisSchema = new mongoose.Schema({
-    id: mongoose.Schema.Types.ObjectId,
+    _id: mongoose.Schema.Types.ObjectId,
     nome: {
         type: String,
         required: true,
@@ -23,10 +22,14 @@ const locaisSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    //coordenadas:{ 
-      //  type : ,
-      //  requerid: true
-    //}
+    latitude:{ 
+        type : Number,
+        requerid: true
+    },
+    longitude:{ 
+        type: Number,
+        requerid: true
+    }
 })
 
 
