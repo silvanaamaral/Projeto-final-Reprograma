@@ -29,7 +29,12 @@ const locaisSchema = new mongoose.Schema({
     longitude:{ 
         type: Number,
         requerid: true
-    }
+    },
+    criadoEm: {
+        type: Date,
+        required: true,
+        default: new Date
+     }
 })
 
 
