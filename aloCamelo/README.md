@@ -3,7 +3,13 @@
 
 
 
+
+
+
 ## Alô Camelô
+
+
+
 
 
   <img src= "./assets/vendedor-garçon.jpg" alt="garçon vendedor no sinal" width ="400" align="right" padding="200"/>
@@ -108,7 +114,7 @@ RELACIONADO À COVID-19**
 |  Atualização de Administrador por id       |  PUT      | /admin/:id   |
 |  Remoção de Administrador por email        | DELETE    | /admin/:id |
 
-## **Expressão de Gratidão** 🤔🤔🤣🤣 🙌
+## **Expressão de Gratidão** 🙌
 
 " O que sabemos é uma gota, o que ignoramos é um Oceano".(Isaac Newton)
 A evolução deste projeto contou com ajuda de diversas pessoas , as colegas de turma, professores, monitoras, agradeço imensamente. O carinho e a dedicação se tornaram ferramentas que me permitiram, chegar até o final deste ciclo de forma satisfatória. 
