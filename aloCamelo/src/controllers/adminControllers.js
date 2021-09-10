@@ -1,89 +1,107 @@
-//require("dotenv-safe").config();
-/* const administrador = require('../models/admin')
+require("dotenv-safe").config();
+const Administrador = require('../models/admin')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const SECRET = process.env.SECRET;
 const { auth } = require("./authorization");
+const { connect } = require("../data/database");
 
-//connect();
+
+connect()
 
 const allAdmin = (req, res) => {
   auth(req, res);
 
-  adminModel.find((err, administrators) => {
+  Administrador.find((err, administrators) => {
     if (err) {
       return res.status(424).send({ message: err.message });
     }
     res.status(200).send(administrators);
   });
-}; 
-
-const createAdmin = async (req, res) => {
-  const senhaComHash = bcrypt.hashSync(req.body.senha, 10)
-  req.body.senha = senhaComHash
-
-  const administrador = new Administrador(req.body)
-  try {
-    const novoAdministrador = await administrador.save()
-    res.status(201).json(novoAdministrador)
-  } catch (err) {
-    res.status(400).json({ message: err.message })
-  }
-}
-const loginAdmin = async (req, res) => {
-  const administradorEncontrado = new Administrador(req.body)
-
-    administrador.findOne({ email: administradorEncontrado.email }, (err, administradorEncontrado) => {
-    if (!administradorEncontrado) {
-      return res.status(404).send({ message: 'administrador nao encontrado', email: '${req.body.email}' })
+};
+const createAdmin = (req, res) => {
+    const encryptedPassword = bcrypt.hashSync(req.body.password, 10);
+        req.body.password = encryptedPassword;
+  
+        const newAdmin = new Administrador(req.body);
+        newAdmin.save((err) => {
+          if (err) {
+            return res.status(424).send({ message: err.message });
+          }
+          res.status(201).send({
+            message: "Admin registrado com sucesso!",
+            administrador: newAdmin,
+          });
+        });
+};
+const loginAdmin = (req, res) => {
+  Administrador.findOne({ email: req.body.email }, (err, adminEncontrada) => {
+    if (!adminEncontrada) {
+      
+      return res.status(404).send({ message: "Admin não encontrada", email: `${req.body.email}` })
     }
-    const senhaValida = bcrypt.compareSync(req.body.senha, administradorEncontrado.senha)
 
+    const senhaValida = bcrypt.compareSync(req.body.password, adminEncontrada.password)
     if (!senhaValida) {
-      return res.status(401).send({ message: 'Login inválido' })
+      return res.status(401).send({ message: "Login não autorizado" })
     }
     
-    const id = administradorEncontrado.Id;
-    const sec = process.env.SECRET;
+    const token = jwt.sign({ email: req.body.email }, SECRET)
 
-    const token = jwt.sign({ id }, '${sec}', {
-      expiresIn: 300 // expires in 5min
-    });
-
-     return res.status(200).send({ messagem: 'Login realizado com sucesso', token: token })
+    res.status(200).send({ message: "Login realizado com sucesso!", token: token })
   })
-
 }
 const updateAdmin = (req, res) => {
-  auth(req, res);
+  const authHeader = req.get('Authorization')
+  const token = authHeader.split(' ')[1]
+  if(!token){
+    return res.status(403).send({message: 'Insira o token!'})}
 
-  const id = req.params.id;
-  const updateInformation = req.body;
-  updateInformation.password = bcrypt.hashSync(req.body.password, 10);
-
-  adminModel.findByIdAndUpdate(id, updateInformation, (err, admin) => {
-    if (err) {
-      return res.status(424).send({ message: err.message });
-    } else if (admin) {
-      return res.status(200).send("Administrator update successfully!");
-    }
-    res.status(404).send("Administrator not found!");
-  });
+    jwt.verify(token, SECRET, async(err) => {
+      if (err) {
+          return res.status(403).send({message: 'Token não válido!', err})
+      }try {
+      const administrador = await Administrador.findById(req.params.id)
+      if(administrador == null){
+      return res.status(404).json({message: "Adm não localizado!"})
+      }
+      if (req.body.nome != null){
+      administrador.nome = req.body.nome
+      }
+      const admAtualizado = await administrador.save()
+      res.status(200).json(admAtualizado)
+        } catch (err) {
+            res.status(500).json({message: err.message})
+        }
+    })
 };
-const removeAdminByEmail = (req, res) => {
-  auth(req, res);
+const removeAdminById = (req, res) => {
+  const authHeader = req.get('Authorization')
+  const token = authHeader.split(' ')[1]
+  if(!token){
+    return res.status(403).send({message: 'Insira o token!'})}
 
-  const params = req.query;
-  adminModel.deleteOne(params, (err, email) => {
-    if (err) {
-      return res.status(424).send({ message: err.message });
-    } else if (email) {
-      return res.status(200).send("Administrator successfully removed!");
-    }
-    res.status(404).send("Administrator not found!");
-  });
-};
+    jwt.verify(token, SECRET, async(err) => {
+      if (err) {
+          return res.status(403).send({message: 'Token não válido!', err})
+      }
+      const admId = req.params.id
+      try
+        {
+          Administrador.deleteOne({ _id: requireId }, function(err){
+              if(!err){
+                  res.status(200).json({message: "Administrador apagado com sucesso!"})
+              }else{
+                  res.status(500).json({message: err.message})
+              }
+          })
+      } catch{
+          res.status(404).json({message: 'Não há dados para remover com o ID inserido'})
+      }
+  })
+}
 
 
-module.exports = { allAdmin, createAdmin, loginAdmin, updateAdmin, removeAdminByEmail }
- */
+
+module.exports = { allAdmin, createAdmin, loginAdmin, updateAdmin, removeAdminById }
+ 

@@ -1,8 +1,6 @@
-/* const { connect } = require("../models/admin");
+ const { connect } = require("../models/admin");
 const jwt = require("jsonwebtoken");
 const SECRET = process.env.SECRET;
-
-//connect();
 
 const auth = (req, res) => {
   const authHeader = req.get("Authorization");
@@ -18,4 +16,4 @@ const auth = (req, res) => {
   });
 };
 
-module.exports = { auth }; */
+module.exports = { auth }; 

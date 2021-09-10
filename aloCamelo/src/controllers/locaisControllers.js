@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
 const Locais = require('../models/locaisModels.js')
-//const Usuarios = require('../models/usuarios.js')
 
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
