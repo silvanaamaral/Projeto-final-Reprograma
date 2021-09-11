@@ -1,12 +1,20 @@
+require("dotenv-safe").config();
 const mongoose = require('mongoose')
 const Locais = require('../models/locaisModels.js')
-
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const SECRET = process.env.SECRET
+const { auth } = require("./authorization");
+const { connect } = require("../data/database");
+
+
+connect()
 
 
 const getAllLocais = async (req, res) => {
+
+    auth(req, res);
+
     Locais.find((err, local) => {
         if (err) {
             return res.status(500).send({ message: err.message });
@@ -48,15 +56,6 @@ const getFindByNome = async (req, res) =>{
         });
 
 }
-
-const getFindByCoordenadas = async (req, res) =>{
-
-
-
-
-}
-
-
  
 const createLocal = async (req, res) => {
 
@@ -144,8 +143,7 @@ module.exports = {
 
     getAllLocais,
     getFindById,
-    getFindByNome,
-    getFindByCoordenadas,
+    getFindByNome,    
     createLocal,
     updateLocal,
     deletaLocal  
