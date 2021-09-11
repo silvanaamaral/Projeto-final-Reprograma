@@ -12,9 +12,8 @@
 
 
 
-  <img src= "./assets/vendedor-garçon.jpg" alt="garçon vendedor no sinal" width ="400" align="right" padding="200"/>
-
-
+  <img src= "./assets/vendedor-garçon.jpg" alt="garçon vendedor no sinal" width ="400" align="right" padding="200"/> 
+  
 A API "Alô Camelô" é uma aplicação móvel mínima, limpa e bonita para ajudar as pessoas a encontrar  vendedores de rua, vendedores ambulantes, trabalhadores autônomos próximos , criando uma rede de apoio e ajundando a divulgação de seus serviços e produtos.
 
 

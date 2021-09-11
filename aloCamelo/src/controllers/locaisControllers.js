@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const SECRET = process.env.SECRET
 
-//GET
+
 const getAllLocais = async (req, res) => {
     Locais.find((err, local) => {
         if (err) {
@@ -32,24 +32,22 @@ const getFindById = async (req, res) =>{
 }
 
 const getFindByNome = async (req, res) =>{
-    const obterLocalPorNome = async(req, res) => {
-        const { nome } = req.query;
-        Local.find({ nome: nome })
-            .then(async local => {
-                if (local == 0) {
-                    res.status(404).json({ message: 'Não há local cadastrado' });
-                } else {
-                    res.status(200).json(local);
-                }
-            })
-            .catch((err) => {
-                res.status(400).json(err);
-            });
-    
-    } 
 
+    const nome = req.query.nome;
 
-} 
+    Locais.find({ nome: nome })
+        .then(async local => {
+            if (local == 0) {
+                res.status(404).json({ message: 'Não há local cadastrado' });
+            } else {
+                res.status(200).json(local);
+            }
+        })
+        .catch((err) => {
+            res.status(400).json(err);
+        });
+
+}
 
 const getFindByCoordenadas = async (req, res) =>{
 
@@ -59,7 +57,7 @@ const getFindByCoordenadas = async (req, res) =>{
 }
 
 
-//POST 
+ 
 const createLocal = async (req, res) => {
 
     const local = new Locais ({
@@ -81,21 +79,19 @@ const createLocal = async (req, res) => {
     }  
 }    
 
-//PUT 
+
 
 const updateLocal = async (req, res) => {
 
     try {
 
-        //Tenta encontrar um local pelo id
         const local = await Locais.findById(req.params.id)
-        //Se você não encontrar me retorne o erro
-
-        if (local == null) {
+   
+     if (local == null) {
             return res.status(404).json({message: "local não encontrado"})
         }
 
-        //No corpo da requisição tem algo digitado, considere o que tiver digitado como alteração
+        
         if (req.body.nome != null) {
             local.nome = req.body.nome
         }
@@ -109,19 +105,19 @@ const updateLocal = async (req, res) => {
             local.longitude = req.body.longitude
         }
 
-        //Já salvou?
+        
         const localAtualizado = await local.save()
-        //Retornando o documento atualizado com o código de sucesso
+      
         res.status(200).json(localAtualizado)
 
     } catch (err) {
-        //Se houve qulquer erro acima, mostre qual erro foi esse 
+        
         res.status(500).json({message: err.message})
       }
 
 } 
 
-//DELETE
+
 
 const deletaLocal = async (req, res) => {
       
