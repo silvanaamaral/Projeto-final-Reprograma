@@ -88,7 +88,7 @@ const removeAdminById = (req, res) => {
       const admId = req.params.id
       try
         {
-          Administrador.deleteOne({ _id: requireId }, function(err){
+          Administrador.deleteOne({ _id: admId }, function(err){
               if(!err){
                   res.status(200).json({message: "Administrador apagado com sucesso!"})
               }else{
