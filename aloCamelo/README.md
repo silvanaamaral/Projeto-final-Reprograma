@@ -14,7 +14,7 @@
 
   <img src= "./assets/vendedor-garçon.jpg" alt="garçon vendedor no sinal" width ="400" align="right" padding="200"/> 
   
-A API "Alô Camelô" é uma aplicação móvel mínima, limpa e bonita para ajudar as pessoas a encontrar  vendedores de rua, vendedores ambulantes, trabalhadores autônomos próximos , criando uma rede de apoio e ajundando a divulgação de seus serviços e produtos.
+A API "Alô Camelô" é uma aplicação móvel mínima, limpa e bonita para ajudar as pessoas a encontrar  vendedores de rua, vendedores ambulantes, trabalhadores autônomos próximos , criando uma rede de apoio e ajudando a divulgação de seus serviços e produtos.
 
 
 Status: **concluído** :heavy_check_mark:
@@ -111,7 +111,7 @@ RELACIONADO À COVID-19**
 |  cadastro do Administrador                 |  POST     | /create      |  
 |  Lista dos Administradores                 |  GET      | /todos       | 
 |  Atualização de Administrador por id       |  PUT      | /admin/:id   |
-|  Remoção de Administrador por email        | DELETE    | /admin/:id |
+|  Remoção de Administrador por id        | DELETE    | /admin/:id |
 
 ## **Expressão de Gratidão** 🙌
 
