@@ -68,6 +68,9 @@ const updateAdmin = (req, res) => {
       if (req.body.nome != null){
       administrador.nome = req.body.nome
       }
+      if (req.body.email != null){
+        administrador.email = req.body.email
+      }
       const admAtualizado = await administrador.save()
       res.status(200).json(admAtualizado)
         } catch (err) {
